@@ -23,7 +23,7 @@ then
 		echo "No file $file at $path"
 	fi
 # copy to same folder (just creates copy with _old suffix)
-elif  [[ "$PWD" == $path ]] || [[ $path == "." ]]
+elif  [[ "$PWD" == $path ]] || [[ $path == "./" ]]
 then
 	if [ -f "$oldfile" ] 
 	then
