@@ -36,3 +36,11 @@ function create_tag(functionality, inner_element, parent) {
 
 	return tag;
 }
+
+
+// if any of the items is relevant to the /usage function (eg contains /value), return true
+function any(list, usage, value) {
+	for(var x = 0; x < list.length; x++)
+		if(usage(list[x], value)) return true;
+	return false;
+}
