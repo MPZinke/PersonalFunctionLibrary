@@ -48,6 +48,11 @@ sudo mkdir /Commands/backup/bin
 sudo cp backup.sh /Commands/backup/bin/backup
 sudo chmod +x /Commands/backup/bin/backup
 
+# create repo on git server
+sudo mkdir /Commands/create_repo
+sudo mkdir /Commands/create_repo/bin
+sudo cp create_repo.sh /Commands/create_repo/bin/create_repo
+sudo chmod +x /Commands/create_repo/bin/create_repo
 
 # —————————— ADD PATHS AND ALIASES TO BASH PROFILE —————————
 
