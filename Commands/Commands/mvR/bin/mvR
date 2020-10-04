@@ -1,0 +1,30 @@
+#!/bin/bash
+
+##########################################################################################
+#
+#	created by: MPZinke
+#	on 2020.10.4
+#
+#	DESCRIPTION:	Moves a folder using cp & rm
+#	BUGS:		-
+#	FUTURE:	-
+#
+##########################################################################################
+
+
+Folder=$1
+Destination=$2
+
+if [ -d $Folder ]
+then
+	if [ -d $Destination ]
+	then
+		cp -R $Folder $Destination \
+		&& rm -rf $Folder \
+		&& echo "Moved $Folder to $Destination"
+	else
+		echo "Bad destination"
+	fi
+else
+	echo "$Folder does not exist"
+fi

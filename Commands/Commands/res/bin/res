@@ -9,7 +9,7 @@
 file=$1
 name="${file##.*}"
 extension="${file##*.}"
-template_path="~/Templates/"
+template_path="/Commands/res/bin/Templates/"
 
 if [ ! -f "${template_path}template.$extension" ] 
 then
