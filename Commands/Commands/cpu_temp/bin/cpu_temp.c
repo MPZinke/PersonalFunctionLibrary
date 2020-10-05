@@ -33,7 +33,7 @@ typedef char* string;
 // Shift a number over one spot, add a decimal, terminate the string.
 void format_contents(string output)
 {
-	// yay branchless programming (5 more operations, but never have to clear look ahead)
+	// yay branchless programming (1 more operation, but never have to clear look ahead)
 	// char* index = output + 3 + (output[5] != 0);
 	// *index = *(index-1);  // shift decimal over one
 	// *(index-1) = '.';
@@ -71,6 +71,51 @@ bool open_file_and_read_contents(string file_contents, string file_path)
 }
 
 
+// Calculate index of text array for colors based on temperature string.
+// Take address for temperature string.
+// Get offset using boolean alegbra.
+// Return offset.
+int index_for_temperature_color(string temperature)
+{
+	// get numeric offset, keep index with in bounds, adjust index for if 3 digit number (100 <= )
+	// return (((*temperature) - 53) * ((*temperature) > 53)) + (5 * (temperature[3] == '.'));  // branchless
+
+	// assembly version of above (skipping moving values out of registers)
+	__asm__
+	(
+		"MOVZBL (%RDI), %EAX;  #  get 1st character for evaluation\n"
+		"\tMOV %RAX, %RBX;  # play leapfrog with values"
+		"\tSUB $53, %RBX;  # \n"
+		"\tMOV $0, %RCX;  # hold value 5 for if LE CMP\n"
+		"\tCMP $53, %RAX;  # \n"
+		"\tCMOVLE %RCX, %RBX;  # index = 0 if character is <= '5'\n"
+		"\tMOVZB 3(%RDI), %RAX;  # get 4th character for evaluation\n"
+		"\tMOV $5, %RCX;  # hold value 5 for if E CMP\n"
+		"\tCMP $46, %RAX;  # check if value is decimal point\n"
+		"\tCMOVE %RCX, %RBX;  # 3 digit number: add offset of 5\n"
+		"\tMOV %RBX, %RAX;  # return value\n"
+	);
+}
+
+
+// Read characters of temperature string & determine color to set in console.
+// Takes address for temperature string.
+// Evaluates first character and location of decimal point.
+// Prints color prefix to screen.
+void set_color_for_temperature(string temperature)
+{
+	string colors[] =	{
+							"\e[0;35m",
+							"\e[0;34m",
+							"\e[0;32m",
+							"\e[0;33m",
+							"\e[0;31m",
+							"\e[0;31m"
+						};
+	printf(colors[index_for_temperature_color(temperature)]);
+}
+
+
 
 int main()
 {
@@ -81,6 +126,13 @@ int main()
 								DEF_STR(TEMPERATURE_PATH, temp4_input)
 							};
 
+	string names[] =	{
+							"Tctl",
+							"Tdie",
+							"Tccd1",
+							"Tccd2"
+						};
+
 	// iterate files, get contents & print formatted contents
 	for(int x = 0; x < sizeof(file_paths) / sizeof(string); x++)
 	{
@@ -89,6 +141,8 @@ int main()
 		else 
 		{
 			format_contents(file_contents);
+			printf("\e[0m%s: ", names[x]);
+			set_color_for_temperature(file_contents);
 			printf("%s\n", file_contents);
 		}
 	}
