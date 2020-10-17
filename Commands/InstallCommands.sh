@@ -25,3 +25,4 @@ sudo chmod +x /Commands/create_repo/bin/create_repo
 sudo chmod +x /Commands/mvR/bin/mvR
 sudo chmod +x /Commands/res/bin/res
 sudo chmod +x /Commands/run/bin/run
+sudo chmod +x /Commands/share/bin/share

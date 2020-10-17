@@ -1,0 +1,17 @@
+#!/bin/bash
+
+##########################################################################################
+#
+#       created by: MPZinke
+#       on 2020.10.11
+#
+#       DESCRIPTION:	Uses git as a generic sharing method, with an incremental commit message the log to 
+#							track iteration.  Used as an alternative to FTP or a proprietary Drive.
+#       BUGS:		- Does not check that commit message is number.
+#       FUTURE:		- Check that commit message is number.
+#
+##########################################################################################
+
+previous_commit_message=$(git log -1 --pretty=%B)
+current_commit_message=$(( $previous_commit_message + 1))
+git commit -m "$current_commit_message" && git push && echo "Successfully push"
