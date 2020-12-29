@@ -22,7 +22,6 @@ sudo cp -R ./Commands/* /Commands
 sudo chmod +x /Commands/backup/bin/backup
 sudo chmod +x /Commands/cdf/bin/cdf
 sudo chmod +x /Commands/create_repo/bin/create_repo
-sudo chmod +x /Commands/mvR/bin/mvR
 sudo chmod +x /Commands/res/bin/res
 sudo chmod +x /Commands/run/bin/run
 sudo chmod +x /Commands/share/bin/share
