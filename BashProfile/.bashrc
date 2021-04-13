@@ -21,6 +21,7 @@ function prompt
 	export PS1="$MEDIUMPURPLE1\t$AQUA_8_BIT_OR_BRIGHTCYAN_3_4_BIT@\h$GREEN1:\w $RED2>>\[\e[0m\] "  # 2021.04.12
 }
 prompt
+PROMPT_DIRTRIM=3
 
 
 ### PATH ###
