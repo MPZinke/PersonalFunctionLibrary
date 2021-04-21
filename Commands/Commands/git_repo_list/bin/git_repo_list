@@ -20,12 +20,12 @@ REMOTE_LIST="../RemoteList.sh"
 
 if [[ "$1" == "" || "$1" == "list" ]]; then
 	if [ "$2" == "all" ]; then
-		for repo in "${!git_repo_remote_dictionary[@]}"
+		for repo in "${!git_repo_dictionary[@]}"
 		do
-			echo "$repo - ${git_repo_remote_dictionary[$repo]}"
+			echo "$repo - ${git_repo_dictionary[$repo]}"
 		done
 	else
-		for repo in "${!git_repo_remote_dictionary[@]}"
+		for repo in "${!git_repo_dictionary[@]}"
 		do
 			echo "$repo"
 		done
@@ -33,9 +33,9 @@ if [[ "$1" == "" || "$1" == "list" ]]; then
 
 elif [ "$1" == "add" ]; then
 	if [[ "$2" == "" || "$3" == "" ]]; then
-		echo "Bad Arguments. Usage: 'git_repo_remote_list add <repo_name> <repo_url>'"
+		echo "Bad Arguments. Usage: 'git_repo_list add <repo_name> <repo_url>'"
 	else
-		if echo "git_repo_remote_dictionary[\"$2\"]=\"$3\"" >> $REMOTE_LIST ; then
+		if echo "git_repo_dictionary[\"$2\"]=\"$3\"" >> $REMOTE_LIST ; then
 			echo "Added $2 to list"
 		else
 			echo "Failed to add $2 to list"
@@ -44,22 +44,22 @@ elif [ "$1" == "add" ]; then
 
 elif [ "$1" == "clone" ]; then
 	if [ "$2" == "" ]; then
-		echo "Bad Arguments. Usage: 'git_repo_remote_list clone <repo_name>'"
+		echo "Bad Arguments. Usage: 'git_repo_list clone <repo_name>'"
 	else
-		git clone "${git_repo_remote_dictionary[$2]}"
+		git clone "${git_repo_dictionary[$2]}"
 	fi
 
 elif [ "$1" == "url" ]; then
 	if [ "$2" == "" ]; then
-		echo "Bad Arguments. Usage: 'git_repo_remote_list url <repo_name>'"
+		echo "Bad Arguments. Usage: 'git_repo_list url <repo_name>'"
 	else
-		echo "${git_repo_remote_dictionary[$2]}"
+		echo "${git_repo_dictionary[$2]}"
 	fi
 
 else
-	echo "'git_repo_remote_list [list]' list the known git repositories"
-	echo "'git_repo_remote_list add <repo_name> <repo_url>' add the repository to list of known repositories"
-	echo "'git_repo_remote_list clone <repo_name>' clone the repository from list of known repositories"
-	echo "'git_repo_remote_list help' display what is being display"
-	echo "'git_repo_remote_list url <repo_name>' display the url for the listed repo"
+	echo "'git_repo_list [list]' list the known git repositories"
+	echo "'git_repo_list add <repo_name> <repo_url>' add the repository to list of known repositories"
+	echo "'git_repo_list clone <repo_name>' clone the repository from list of known repositories"
+	echo "'git_repo_list help' display what is being display"
+	echo "'git_repo_list url <repo_name>' display the url for the listed repo"
 fi
