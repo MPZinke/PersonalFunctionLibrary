@@ -19,16 +19,18 @@ REMOTE_LIST="../RemoteList.sh"
 
 
 if [[ "$1" == "" || "$1" == "list" ]]; then
-	if [ "$2" == "all" ]; then
+	if [ "$2" == "" ]; then
+		for repo in "${!git_repo_dictionary[@]}"
+		do
+			echo "$repo"
+		done
+	elif [ "$2" == "all" ]; then
 		for repo in "${!git_repo_dictionary[@]}"
 		do
 			echo "$repo - ${git_repo_dictionary[$repo]}"
 		done
 	else
-		for repo in "${!git_repo_dictionary[@]}"
-		do
-			echo "$repo"
-		done
+		echo "Bad Arguments. Usage: 'git_repo_list [list [all]]'"
 	fi
 
 elif [ "$1" == "add" ]; then
@@ -57,7 +59,7 @@ elif [ "$1" == "url" ]; then
 	fi
 
 else
-	echo "'git_repo_list [list]' list the known git repositories"
+	echo "'git_repo_list [list [all]]' list the known git repositories"
 	echo "'git_repo_list add <repo_name> <repo_url>' add the repository to list of known repositories"
 	echo "'git_repo_list clone <repo_name>' clone the repository from list of known repositories"
 	echo "'git_repo_list help' display what is being display"
