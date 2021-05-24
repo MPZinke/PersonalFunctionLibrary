@@ -1,0 +1,15 @@
+[Unit]
+Description=Data and environment backup script
+After=sshd.service
+
+[Service]
+ExecStart=/Commands/backup/bin/backup
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=MPZinke_backup
+User=root
+Group=root
+
+[Install]
+WantedBy=multi-user.target
